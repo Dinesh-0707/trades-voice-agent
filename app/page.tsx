@@ -1,4 +1,5 @@
 import CallDemo from "./CallDemo";
+import LiveCall from "./LiveCall";
 
 const PROBLEMS = [
   {
@@ -76,9 +77,28 @@ export default function Home() {
       </section>
 
       <section className="relative max-w-6xl mx-auto px-6 pb-24">
+        <div className="mb-8 flex items-end justify-between gap-4 flex-wrap text-center sm:text-left">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-semibold text-white">Talk to Ring</h2>
+            <p className="text-zinc-500 mt-2">
+              This is the real thing — a live Gemini agent, a real dispatch database, and a real
+              job record that fills itself in as you talk.
+            </p>
+          </div>
+          <a
+            href="/dispatch"
+            className="text-xs uppercase tracking-wide text-cyan-300 border border-cyan-400/30 rounded-lg px-3 py-2 hover:bg-cyan-400/10 transition shrink-0"
+          >
+            Dispatch board →
+          </a>
+        </div>
+        <LiveCall />
+      </section>
+
+      <section className="relative max-w-6xl mx-auto px-6 pb-24">
         <div className="text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-white">See it handle a real call</h2>
-          <p className="text-zinc-500 mt-2">Switch scenarios below — the job record fills itself in as the call happens.</p>
+          <h2 className="text-2xl sm:text-3xl font-semibold text-white">Example: see it handle a real call</h2>
+          <p className="text-zinc-500 mt-2">A scripted walkthrough of the same idea, for a quick look without typing.</p>
         </div>
         <CallDemo />
       </section>

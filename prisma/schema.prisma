@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum JobUrgency {
+  EMERGENCY
+  SAME_DAY
+  ROUTINE
+}
+
+enum JobStatus {
+  NEW
+  DISPATCHED
+  SCHEDULED
+  COMPLETED
+}
+
+enum CrmStatus {
+  NOT_CONNECTED
+  PENDING
+  SYNCED
+  ERROR
+}
+
+enum JobSource {
+  CHAT
+  VOICE
+}
+
+enum QuoteStatus {
+  SENT
+  ACCEPTED
+  DECLINED
+}
+
+enum MessageChannel {
+  CHAT
+  VOICE
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+model Technician {
+  id        String   @id @default(cuid())
+  name      String
+  available Boolean  @default(true)
+  jobs      Job[]
+}
+
+model Customer {
+  id      String  @id @default(cuid())
+  name    String
+  phone   String?
+  address String?
+  jobs    Job[]
+  quotes  Quote[]
+
+  @@index([name])
+  @@index([phone])
+}
+
+model Job {
+  id            String     @id @default(cuid())
+  reference     String     @unique
+  sessionId     String?    @unique
+  customerId    String?
+  customer      Customer?  @relation(fields: [customerId], references: [id])
+  issue         String?
+  urgency       JobUrgency @default(ROUTINE)
+  status        JobStatus  @default(NEW)
+  technicianId  String?
+  technician    Technician? @relation(fields: [technicianId], references: [id])
+  eta           String?
+  crmStatus     CrmStatus  @default(NOT_CONNECTED)
+  crmRef        String?
+  source        JobSource
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  messages Message[]
+  quotes   Quote[]
+}
+
+model Quote {
+  id          String      @id @default(cuid())
+  customerId  String?
+  customer    Customer?   @relation(fields: [customerId], references: [id])
+  jobId       String?
+  job         Job?        @relation(fields: [jobId], references: [id])
+  description String
+  amountCents Int
+  status      QuoteStatus @default(SENT)
+  sentAt      DateTime    @default(now())
+  respondedAt DateTime?
+}
+
+model Message {
+  id        String         @id @default(cuid())
+  jobId     String?
+  job       Job?           @relation(fields: [jobId], references: [id])
+  sessionId String
+  channel   MessageChannel
+  role      MessageRole
+  content   String
+  createdAt DateTime       @default(now())
+
+  @@index([sessionId])
+}
