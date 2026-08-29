@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { logoutOfDispatch, markJobComplete } from "@/app/actions/dispatch";
 
+export const dynamic = "force-dynamic";
+
 export default async function DispatchPage() {
   const jobs = await prisma.job.findMany({
     orderBy: { createdAt: "desc" },
