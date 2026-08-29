@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ring — AI Voice Agent for Home Service Trades
 
-## Getting Started
+**Live demo:** [trades-voice-agent.vercel.app](https://trades-voice-agent.vercel.app)
 
-First, run the development server:
+A product concept and interactive UI demo for an AI voice agent aimed at home service trades (HVAC, plumbing, roofing). Ring answers every incoming call, triages emergencies, books the job, and syncs the record to a CRM — designed to stop missed calls from becoming lost jobs.
+
+## What this is
+
+This is a front-end concept demo: a scripted, animated call-transcript simulation showing the end-to-end flow from an inbound call to a booked, CRM-synced job record. It is **not** a live voice AI or CRM integration — no real calls are placed or received, and no ServiceTitan/Jobber connection exists. It's built to communicate the product idea and interaction design clearly, not to process real phone traffic.
+
+Two scenarios are included:
+- **After-hours emergency** — an urgent call triaged and booked outside business hours.
+- **Unaccepted quote chase-up** — a proactive follow-up call that converts a cold quote into a booked job.
+
+As each scripted call plays, a job record panel fills itself in live (customer, phone, issue, urgency, scheduled time) alongside a simulated CRM sync status.
+
+## Tech stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/data.ts` — scripted call scenarios and the dashboard state each line patches in
+- `app/CallDemo.tsx` — the interactive transcript/dashboard component
+- `app/page.tsx` — landing page and product framing
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT — see [LICENSE](LICENSE).
